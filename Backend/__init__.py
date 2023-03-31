@@ -1,15 +1,18 @@
 from flask import Flask
 from Backend.routes import home 
-from pymongo import MongoClient
+from flask_pymongo import PyMongo
 
 
-# setting up mongodb
-client = MongoClient('mongodb://localhost:27017/')
-db = client.food_database
+
 
 def create_app(test_config=None):
   #set up app config
   app = Flask('Backend', static_url_path='/')
+  app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/mydb"
+  mongo = PyMongo(app)
+
+  #creating the food collection
+  food_collection = mongo.db.foods
 
 
 
